@@ -29,10 +29,18 @@ else:
         posts_replied_to = list(set(posts_replied_to))
 
 # Define blocked subs
-blockedSubs = ['TodayILearned']
+blockedSubs = [
+    'TodayILearned'
+]
 
 # Define blocked users
-blockedUsers = ['mike_pants', '_5__', 'exoticmind_2', 'misterdominic', 'Yung_Relight', '​LogansGamerta9', '​RicoDePico', '​Tjah78', 'c​reatedin2017', 'Pmaguire13']
+blockedUsers = [
+    'mike_pants',       '_5__',
+    'exoticmind_2',     'misterdominic',
+    'Yung_Relight',     'LogansGamerta9',
+    'RicoDePico',       'Tjah78',
+    'createdin2017',    'Pmaguire13'
+]
 
 # Get all posts from subreddit
 subreddit = r.get_subreddit('all')
