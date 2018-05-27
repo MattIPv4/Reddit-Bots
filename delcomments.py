@@ -1,6 +1,7 @@
-import praw, re, os, sys
+import os
+import praw
+
 from conf import *
-from datetime import *
 
 # Check that the file that contains our username exists
 if not os.path.isfile("conf.py"):

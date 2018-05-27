@@ -1,6 +1,8 @@
-import praw, re, os, sys
+import os
+import praw
+import sys
+
 from conf import *
-from datetime import *
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
@@ -20,7 +22,8 @@ r = praw.Reddit(client_id=REDDIT_CLIENT,
 blockedSubs = ['TodayILearned']
 
 # Define blocked users
-blockedUsers = ['mike_pants', '_5__', 'exoticmind_2', 'misterdominic', 'Yung_Relight', '​LogansGamerta9', '​RicoDePico', '​Tjah78', 'c​reatedin2017', 'Pmaguire13']
+blockedUsers = ['mike_pants', '_5__', 'exoticmind_2', 'misterdominic', 'Yung_Relight', '​LogansGamerta9', '​RicoDePico',
+                '​Tjah78', 'c​reatedin2017', 'Pmaguire13']
 
 # Get all posts from subreddit
 subreddit = r.subreddit('all')
@@ -34,7 +37,8 @@ for submission in subreddit.top("day", limit=25):
         # Check if we've replied (upvoted)
         if submission.likes:
             replied = submission.likes
-        else: replied = False
+        else:
+            replied = False
 
         # If we haven't replied to this post before and not blacklisted user/sub
         if not replied and str(submission.subreddit) not in blockedSubs and str(submission.author) not in blockedUsers:
@@ -49,18 +53,18 @@ for submission in subreddit.top("day", limit=25):
                 submission.reply("Congrats for reaching r/all/top/ (of the day, top 25) with your post!" + footer)
             except Exception as e:
                 errors += 1
-                #print("Comment Failed...\n")
-                #print("Unexpected error:", e, "\n\n")
+                # print("Comment Failed...\n")
+                # print("Unexpected error:", e, "\n\n")
             else:
                 try:
                     submission.upvote()
                 except Exception as e:
                     errors += 1
-                    #print("Upvote Failed...\n")
-                    #print("Unexpected error:", e, "\n\n")
+                    # print("Upvote Failed...\n")
+                    # print("Unexpected error:", e, "\n\n")
                 else:
                     count += 1
-                    #print("NEW Post ["+str(count)+"]:", submission.title.translate(non_bmp_map), "\n\n")
+                    # print("NEW Post ["+str(count)+"]:", submission.title.translate(non_bmp_map), "\n\n")
 
 # Alert Completion
 print("r/all/top/ Bot Scan Completed")
