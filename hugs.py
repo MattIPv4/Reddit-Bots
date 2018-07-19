@@ -1,9 +1,10 @@
 import os
-import praw
-import requests
 import sys
 from datetime import datetime, timedelta
-from random import randint
+from random import randint, choice
+
+import praw
+import requests
 
 from conf import *
 
@@ -30,6 +31,20 @@ blockedUsers = ['']
 # Get all posts from subreddit
 count = 0
 errors = 0
+
+# Response formats
+responses = [
+    "***{}s***",
+    "\\*{}s\\*",
+    "***\\*{}s\\****",
+    "***{}***",
+    "\\*{}\\*",
+    "***\\*{}\\****",
+    "here's one {} for you",
+    "here's one ***{}*** for you",
+    "have a {}",
+    "have a ***{}***",
+]
 
 request = requests.get('https://api.pushshift.io/reddit/search?q=hug&limit=1000', headers={'User-Agent': user_agent})
 json = request.json()
@@ -61,7 +76,7 @@ for c in comments:
 
                 # Reply to the post
                 try:
-                    c.reply("***hugs***")
+                    c.reply(choice(responses).format("hug"))
                 except Exception as e:
                     errors += 1
                     # print("Comment Failed...\n")
@@ -107,7 +122,7 @@ for c in comments:
 
                 # Reply to the post
                 try:
-                    c.reply("***hugs***")
+                    c.reply(choice(responses).format("cuddle"))
                 except Exception as e:
                     errors += 1
                     # print("Comment Failed...\n")
