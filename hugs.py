@@ -29,6 +29,8 @@ blockedSubs = ['']
 blockedUsers = ['']
 
 # Get all posts from subreddit
+total = 0
+match = 0
 count = 0
 errors = 0
 
@@ -59,7 +61,7 @@ def get_response(type: str) -> str:
     global responses, extras
 
     response = choice(responses).format(type)
-    if choice([0, 1]) == 0:
+    if randint(0, 1) == 0:
         response = response + choice(extras)
     else:
         response = choice(extras) + response
@@ -67,18 +69,22 @@ def get_response(type: str) -> str:
 
 
 def run(type: str):
-    global user_agent, blockedSubs, blockedUsers, count, errors
+    global user_agent, blockedSubs, blockedUsers, total, match, count, errors
 
-    request = requests.get('https://api.pushshift.io/reddit/search?q={}&limit=1000'.format(type),
+    request = requests.get('https://api.pushshift.io/reddit/search?q={}&limit=10000'.format(type),
                            headers={'User-Agent': user_agent})
     json = request.json()
     comments = json["data"]
     for c in comments:
 
+        total += 1
+
         if 'i need a {}'.format(type) in c['body'].lower() \
                 or 'i need {}s'.format(type) in c['body'].lower() \
                 or '{} please'.format(type) in c['body'].lower() \
                 or '{}s please'.format(type) in c['body'].lower():
+
+            match += 1
 
             c = praw.models.Comment(r, id=c['id'])
             c.refresh()
@@ -123,4 +129,4 @@ run("hug")
 run("cuddle")
 
 # Alert Completion
-print("Hugs Bot Scan Completed - {:,} / {:,}".format(count, errors))
+print("Hugs Bot Scan Completed - {:,} / {:,} / {:,} / {:,}".format(total, match, count, errors))
