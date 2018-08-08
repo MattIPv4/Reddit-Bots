@@ -45,98 +45,82 @@ responses = [
     "have a {}",
     "have a ***{}***",
 ]
+extras = [
+    "",
+    "",
+    " \N{WHITE SMILING FACE}",
+    " \N{SLIGHTLY SMILING FACE}",
+    " \N{HUGGING FACE}",
+    " \N{SMILING FACE WITH SMILING EYES}"
+]
 
-request = requests.get('https://api.pushshift.io/reddit/search?q=hug&limit=1000', headers={'User-Agent': user_agent})
-json = request.json()
-comments = json["data"]
-for c in comments:
 
-    if 'i need a hug' in c['body'].lower() or 'i need hugs' in c['body'].lower() or 'hug please' in c[
-        'body'].lower() or 'hugs please' in c['body'].lower():
+def get_response(type: str) -> str:
+    global responses, extras
 
-        c = praw.models.Comment(r, id=c['id'])
-        c.refresh()
+    response = choice(responses).format(type)
+    if choice([0, 1]) == 0:
+        response = response + choice(extras)
+    else:
+        response = choice(extras) + response
+    return response
 
-        # Check if we've replied
-        if c.replies:
-            c.replies.replace_more(limit=0)
-            replied = [f for f in c.replies.list() if str(f.author) == str(r.user.me())]
-        else:
-            replied = False
 
-        # Check if we've replied (upvoted)
-        if c.likes and not replied:
-            replied = c.likes
+def run(type: str):
+    global user_agent, blockedSubs, blockedUsers, count, errors
 
-        # Check if is in blacklist, in already replied
-        if not replied and c.subreddit not in blockedSubs and c.author not in blockedUsers:
+    request = requests.get('https://api.pushshift.io/reddit/search?q={}&limit=1000'.format(type),
+                           headers={'User-Agent': user_agent})
+    json = request.json()
+    comments = json["data"]
+    for c in comments:
 
-            # Check if too recent (act natural)
-            if (datetime.fromtimestamp(c.created_utc) + timedelta(minutes=randint(3, 10))) <= datetime.utcnow():
+        if 'i need a {}'.format(type) in c['body'].lower() \
+                or 'i need {}s'.format(type) in c['body'].lower() \
+                or '{} please'.format(type) in c['body'].lower() \
+                or '{}s please'.format(type) in c['body'].lower():
 
-                # Reply to the post
-                try:
-                    c.reply(choice(responses).format("hug"))
-                except Exception as e:
-                    errors += 1
-                    # print("Comment Failed...\n")
-                    # print("Unexpected error:", e, "\n\n")
-                else:
+            c = praw.models.Comment(r, id=c['id'])
+            c.refresh()
+
+            # Check if we've replied
+            if c.replies:
+                c.replies.replace_more(limit=0)
+                replied = [f for f in c.replies.list() if str(f.author) == str(r.user.me())]
+            else:
+                replied = False
+
+            # Check if we've replied (upvoted)
+            if c.likes and not replied:
+                replied = c.likes
+
+            # Check if is in blacklist, in already replied
+            if not replied and c.subreddit not in blockedSubs and c.author not in blockedUsers:
+
+                # Check if too recent (act natural)
+                if (datetime.fromtimestamp(c.created_utc) + timedelta(minutes=randint(3, 10))) <= datetime.utcnow():
+
+                    # Reply to the post
                     try:
-                        c.upvote()
+                        c.reply(get_response(type))
                     except Exception as e:
                         errors += 1
-                        # print("Upvote Failed...\n")
+                        # print("Comment Failed...\n")
                         # print("Unexpected error:", e, "\n\n")
                     else:
                         count += 1
                         # print("NEW Post ["+str(count)+"]:", c.body.translate(non_bmp_map), "\n\n")
+                        try:
+                            c.upvote()
+                        except Exception as e:
+                            # print("Upvote Failed...\n")
+                            # print("Unexpected error:", e, "\n\n")
+                            pass
 
-request = requests.get('https://api.pushshift.io/reddit/search?q=cuddle&limit=1000', headers={'User-Agent': user_agent})
-json = request.json()
-comments = json["data"]
-for c in comments:
 
-    if 'i need a cuddle' in c['body'].lower() or 'i need cuddles' in c['body'].lower() or 'cuddle please' in c[
-        'body'].lower() or 'cuddles please' in c['body'].lower():
-
-        c = praw.models.Comment(r, id=c['id'])
-        c.refresh()
-
-        # Check if we've replied
-        if c.replies:
-            c.replies.replace_more(limit=0)
-            replied = [f for f in c.replies.list() if str(f.author) == str(r.user.me())]
-        else:
-            replied = False
-
-        # Check if we've replied (upvoted)
-        if c.likes and not replied:
-            replied = c.likes
-
-        # Check if is in blacklist, in already replied
-        if not replied and c.subreddit not in blockedSubs and c.author not in blockedUsers:
-
-            # Check if too recent (act natural)
-            if (datetime.fromtimestamp(c.created_utc) + timedelta(minutes=randint(3, 10))) <= datetime.utcnow():
-
-                # Reply to the post
-                try:
-                    c.reply(choice(responses).format("cuddle"))
-                except Exception as e:
-                    errors += 1
-                    # print("Comment Failed...\n")
-                    # print("Unexpected error:", e, "\n\n")
-                else:
-                    try:
-                        c.upvote()
-                    except Exception as e:
-                        errors += 1
-                        # print("Upvote Failed...\n")
-                        # print("Unexpected error:", e, "\n\n")
-                    else:
-                        count += 1
-                        # print("NEW Post ["+str(count)+"]:", c.body.translate(non_bmp_map), "\n\n")
+# Run
+run("hug")
+run("cuddle")
 
 # Alert Completion
-print("Hugs Bot Scan Completed")
+print("Hugs Bot Scan Completed - {:,} / {:,}".format(count, errors))
