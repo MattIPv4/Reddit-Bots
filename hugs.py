@@ -48,12 +48,18 @@ responses = [
     "have a ***{}***",
 ]
 extras = [
-    "",
-    "",
-    " \N{WHITE SMILING FACE}",
-    " \N{SLIGHTLY SMILING FACE}",
-    " \N{HUGGING FACE}",
-    " \N{SMILING FACE WITH SMILING EYES}"
+    "\N{WHITE SMILING FACE}",
+    "\N{SLIGHTLY SMILING FACE}",
+    "\N{HUGGING FACE}",
+    "\N{SMILING FACE WITH SMILING EYES}",
+    ">.>",
+    ":)",
+    "(:",
+    "^_^",
+    "^__^",
+    "^.^",
+    "༼ つ ◕_◕ ༽つ",
+    "(っ◕‿◕)っ"
 ]
 
 
@@ -61,10 +67,11 @@ def get_response(type: str) -> str:
     global responses, extras
 
     response = choice(responses).format(type)
-    if randint(0, 1) == 0:
-        response = response + choice(extras)
-    else:
-        response = choice(extras) + response
+    if randint(0, 2) != 0:
+        if randint(0, 1) == 0:
+            response = response + ' ' + choice(extras)
+        else:
+            response = choice(extras) + ' ' + response
     return response
 
 
