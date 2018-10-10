@@ -52,7 +52,7 @@ extras = [
     "\N{SLIGHTLY SMILING FACE}",
     "\N{HUGGING FACE}",
     "\N{SMILING FACE WITH SMILING EYES}",
-    ">.>",
+    "\\>.\\>",
     ":)",
     "(:",
     "\\^\\_\\^",
@@ -63,10 +63,10 @@ extras = [
 ]
 
 
-def get_response(type: str) -> str:
+def get_response(name: str) -> str:
     global responses, extras
 
-    response = choice(responses).format(type)
+    response = choice(responses).format(name)
     if randint(0, 2) != 0:
         if randint(0, 1) == 0:
             response = response + ' ' + choice(extras)
@@ -75,10 +75,10 @@ def get_response(type: str) -> str:
     return response
 
 
-def run(type: str):
+def run(name: str):
     global user_agent, blockedSubs, blockedUsers, total, match, count, errors
 
-    request = requests.get('https://api.pushshift.io/reddit/search?q={}&limit=10000'.format(type),
+    request = requests.get('https://api.pushshift.io/reddit/search?q={}&limit=10000'.format(name),
                            headers={'User-Agent': user_agent})
     json = request.json()
     comments = json["data"]
@@ -86,10 +86,10 @@ def run(type: str):
 
         total += 1
 
-        if 'i need a {}'.format(type) in c['body'].lower() \
-                or 'i need {}s'.format(type) in c['body'].lower() \
-                or '{} please'.format(type) in c['body'].lower() \
-                or '{}s please'.format(type) in c['body'].lower():
+        if 'i need a {}'.format(name) in c['body'].lower() \
+                or 'i need {}s'.format(name) in c['body'].lower() \
+                or '{} please'.format(name) in c['body'].lower() \
+                or '{}s please'.format(name) in c['body'].lower():
 
             match += 1
 
@@ -115,7 +115,7 @@ def run(type: str):
 
                     # Reply to the post
                     try:
-                        c.reply(get_response(type))
+                        c.reply(get_response(name))
                     except Exception as e:
                         errors += 1
                         # print("Comment Failed...\n")
