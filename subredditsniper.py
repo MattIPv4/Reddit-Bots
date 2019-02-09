@@ -5,31 +5,24 @@ import json
 from conf import *
 
 # Create the Reddit instances
-user_agent = ("SupremeRedditB0t 0.5")
 r = [
-    praw.Reddit(client_id=REDDIT_CLIENT,
-                client_secret=REDDIT_SECRET,
-                username=REDDIT_USERNAME,
-                password=REDDIT_PASS,
-                user_agent=user_agent),
-
     praw.Reddit(client_id=REDDIT_CLIENT_2,
                 client_secret=REDDIT_SECRET_2,
                 username=REDDIT_USERNAME_2,
                 password=REDDIT_PASS_2,
-                user_agent=user_agent),
+                user_agent=USER_AGENT_1),
 
     praw.Reddit(client_id=REDDIT_CLIENT_3,
                 client_secret=REDDIT_SECRET_3,
                 username=REDDIT_USERNAME_3,
                 password=REDDIT_PASS_3,
-                user_agent=user_agent),
+                user_agent=USER_AGENT_1),
 
     praw.Reddit(client_id=REDDIT_CLIENT_4,
                 client_secret=REDDIT_SECRET_4,
                 username=REDDIT_USERNAME_4,
                 password=REDDIT_PASS_4,
-                user_agent=user_agent)
+                user_agent=USER_AGENT_1)
 ]
 
 # Load in targets and set up other vars

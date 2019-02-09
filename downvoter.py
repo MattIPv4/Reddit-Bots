@@ -2,7 +2,6 @@ import traceback
 from random import randint
 from time import sleep
 
-import os
 import praw
 import sys
 
@@ -10,18 +9,12 @@ from conf import *
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
-# Check that the file that contains our username exists
-if not os.path.isfile("conf.py"):
-    print("Config Required!")
-    exit(1)
-
 # Create the Reddit instance
-user_agent = ("SupremeRedditB0t 0.5")
 r = praw.Reddit(client_id=REDDIT_CLIENT_3,
                 client_secret=REDDIT_SECRET_3,
                 username=REDDIT_USERNAME_3,
                 password=REDDIT_PASS_3,
-                user_agent=user_agent)
+                user_agent=USER_AGENT_1)
 
 # Get the target
 target = input("Target: ")

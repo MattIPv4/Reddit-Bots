@@ -1,4 +1,3 @@
-import os
 import sys
 from datetime import datetime, timedelta
 from random import randint, choice
@@ -10,17 +9,12 @@ from conf import *
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
-# Check that the file that contains our username exists
-if not os.path.isfile("conf.py"):
-    exit(1)
-
 # Create the Reddit instance
-user_agent = ("SupremeRedditB0t 0.5")
 r = praw.Reddit(client_id=REDDIT_CLIENT_2,
                 client_secret=REDDIT_SECRET_2,
                 username=REDDIT_USERNAME_2,
                 password=REDDIT_PASS_2,
-                user_agent=user_agent)
+                user_agent=USER_AGENT)
 
 # Define blocked subs
 blockedSubs = ['']

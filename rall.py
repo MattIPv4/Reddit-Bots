@@ -1,4 +1,3 @@
-import os
 import praw
 import sys
 
@@ -6,17 +5,12 @@ from conf import *
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
-# Check that the file that contains our username exists
-if not os.path.isfile("conf.py"):
-    exit(1)
-
 # Create the Reddit instance
-user_agent = ("SupremeRedditB0t 0.5")
 r = praw.Reddit(client_id=REDDIT_CLIENT,
                 client_secret=REDDIT_SECRET,
                 username=REDDIT_USERNAME,
                 password=REDDIT_PASS,
-                user_agent=user_agent)
+                user_agent=USER_AGENT)
 
 # Define blocked subs
 blockedSubs = ['TodayILearned']
