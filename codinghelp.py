@@ -29,7 +29,7 @@ for submission in subreddit.new(limit=25):
     if submission.link_flair_text == None and submission.locked == False and submission.archived == False and submission.quarantine == False and submission.hidden == False and submission.stickied == False:
 
         # Generic Bot Footer (Using []() to avoid mention, replacing ' ' with ' ^' to superscript everything)
-        footer = "\n\n&nbsp;\n\n*****\n\n*^I am a bot run by [\/u\/SupremeDesigner](https://www.reddit.com/user/SupremeDesigner) for /r/CodingHelp || This was an automated response || Posts with no flair will be deleted after two days*"
+        footer = "\n\n&nbsp;\n\n*****\n\n*^I am a bot run by [\/u\/SupremeDesigner](https://www.reddit.com/user/SupremeDesigner) for /r/CodingHelp || This was an automated response*" # || Posts with no flair will be deleted after two days*"
         footer = footer.replace(" ", " ^")
 
         # Generate Age
@@ -86,6 +86,7 @@ for submission in subreddit.new(limit=25):
             submission.reply("Please Add A Flair To Your Post!\n\nSuggested Flair: `[" + flair + "]`" + footer)
             # print("NEW Post:", submission.title.translate(non_bmp_map), "\n\tFlair:", flair, "\n\n")
 
+        """
         # If already replied and age >= 2, comment and delete
         elif age >= 2:
 
@@ -107,6 +108,7 @@ for submission in subreddit.new(limit=25):
 
         # elif age_mins >= 10:
         # print("OLD Post:", submission.title.translate(non_bmp_map), "\n\tHas an age of", age, "days with no flair\n\n")
+        """
 
 # Alert Completion
 print("r/CodingHelp Bot Scan Completed")
