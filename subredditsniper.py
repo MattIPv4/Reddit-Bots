@@ -8,10 +8,10 @@ from conf import *
 
 # Create the Reddit instances
 r = [
-    praw.Reddit(client_id=REDDIT_CLIENT_2,
-                client_secret=REDDIT_SECRET_2,
-                username=REDDIT_USERNAME_2,
-                password=REDDIT_PASS_2,
+    praw.Reddit(client_id=REDDIT_CLIENT,
+                client_secret=REDDIT_SECRET,
+                username=REDDIT_USERNAME,
+                password=REDDIT_PASS,
                 user_agent=USER_AGENT_1),
 
     praw.Reddit(client_id=REDDIT_CLIENT_3,
@@ -69,7 +69,9 @@ for sub, req in targets.copy().items():
                 latest = post.created_utc
 
     # Convert to datetime
-    latest = datetime.utcfromtimestamp(latest) + timedelta(days=60, minutes=randint(10, 40))
+    latest = datetime.utcfromtimestamp(latest) + timedelta(days=60)
+    print(sub, latest)
+    latest += timedelta(minutes=randint(10, 40))
 
     # Check if can request
     if latest < datetime.now():
