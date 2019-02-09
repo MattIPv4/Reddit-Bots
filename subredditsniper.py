@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timedelta
+from random import randint
 
 import praw
 
@@ -68,7 +69,7 @@ for sub, req in targets.copy().items():
                 latest = post.created_utc
 
     # Convert to datetime
-    latest = datetime.utcfromtimestamp(latest) + timedelta(days=60)
+    latest = datetime.utcfromtimestamp(latest) + timedelta(days=60, minutes=randint(10, 40))
 
     # Check if can request
     if latest < datetime.now():
