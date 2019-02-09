@@ -1,10 +1,15 @@
 # Reddit-Bots
 All the Reddit bots I maintain and run - sans configs. 
 
-Codinghelp - run on bot account - Used for flair moderation of r/codinghelp \
-Delcomments - run on personal & bot account - Deletes comments with negative votes \
-Hugs - run on personal account - Repsonds to people wanting hugs/cuddles \
-rall - run on bot account - Responds to posts that reach top 50 of r/all/daily
+| Program | Account Usage | Function |
+|---------|---------------|----------|
+| Codinghelp | Bot account | Used for flair moderation of r/codinghelp |
+| Delcomments | Personal & Bot account | Deletes comments with negative votes |
+| Downvoter | Not used | An experiment to see if a bot could downvote everything on an account |
+| Hugs | Personal account | Responds to people wanting hugs/cuddles |
+| rall | Bot account | Responds to posts that reach top 50 of r/all/daily |
+| SubredditSniper | Not used | A sniper script for reddit requests |
+
 
 ## Discussion, Support and Issues
 For general support and discussion of this project, please join the Discord server: https://discord.gg/qyXqA7y \
