@@ -1,6 +1,7 @@
-from datetime import datetime, timedelta
-import praw
 import json
+from datetime import datetime, timedelta
+
+import praw
 
 from conf import *
 

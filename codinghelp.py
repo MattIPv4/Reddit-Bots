@@ -1,7 +1,7 @@
+import sys
 from datetime import *
 
 import praw
-import sys
 
 from conf import *
 
@@ -22,7 +22,7 @@ for submission in subreddit.new(limit=25):
     if submission.link_flair_text == None and submission.locked == False and submission.archived == False and submission.quarantine == False and submission.hidden == False and submission.stickied == False:
 
         # Generic Bot Footer (Using []() to avoid mention, replacing ' ' with ' ^' to superscript everything)
-        footer = "\n\n&nbsp;\n\n*****\n\n*^I am a bot run by [\/u\/SupremeDesigner](https://www.reddit.com/user/SupremeDesigner) for /r/CodingHelp || This was an automated response*" # || Posts with no flair will be deleted after two days*"
+        footer = "\n\n&nbsp;\n\n*****\n\n*^I am a bot run by [\/u\/SupremeDesigner](https://www.reddit.com/user/SupremeDesigner) for /r/CodingHelp || This was an automated response*"  # || Posts with no flair will be deleted after two days*"
         footer = footer.replace(" ", " ^")
 
         # Generate Age

@@ -1,5 +1,6 @@
-import praw
 import sys
+
+import praw
 
 from conf import *
 

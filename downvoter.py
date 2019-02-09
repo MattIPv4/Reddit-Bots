@@ -1,9 +1,9 @@
+import sys
 import traceback
 from random import randint
 from time import sleep
 
 import praw
-import sys
 
 from conf import *
 
