@@ -73,7 +73,7 @@ def run(name: str):
     global user_agent, blockedSubs, blockedUsers, total, match, count, errors
 
     request = requests.get('https://api.pushshift.io/reddit/search?q={}&limit=10000'.format(name),
-                           headers={'User-Agent': user_agent})
+                           headers={'User-Agent': USER_AGENT})
     json = request.json()
     comments = json["data"]
     for c in comments:

@@ -8,12 +8,6 @@ from conf import *
 
 # Create the Reddit instances
 r = [
-    praw.Reddit(client_id=REDDIT_CLIENT,
-                client_secret=REDDIT_SECRET,
-                username=REDDIT_USERNAME,
-                password=REDDIT_PASS,
-                user_agent=USER_AGENT_1),
-
     praw.Reddit(client_id=REDDIT_CLIENT_3,
                 client_secret=REDDIT_SECRET_3,
                 username=REDDIT_USERNAME_3,
@@ -32,7 +26,7 @@ file_name = "subredditsniper.json"
 with open(file_name) as f:
     targets = json.load(f)
 link_format = "https://www.reddit.com/r/{}"
-title_format = "Requesting r/{} - {}"
+title_format = "request for r/{} - {}"
 request_to = "redditrequest"
 
 # Remove any accounts that have requested in 30 days
