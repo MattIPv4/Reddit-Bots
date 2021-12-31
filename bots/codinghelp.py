@@ -3,7 +3,7 @@ from datetime import *
 
 import praw
 
-from conf import *
+from config import *
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 

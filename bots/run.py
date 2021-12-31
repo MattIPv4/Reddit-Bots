@@ -1,23 +1,23 @@
 import datetime
 
-from conf import *
+from config import *
 
 if RUN_CODING_HELP:
-    try: from bots import codinghelp
+    try: import codinghelp
     except Exception as e: print(e)
 
 if RUN_R_ALL:
-    try: from bots import rall
+    try: import rall
     except Exception as e: print(e)
 
 if RUN_HUGS:
-    try: from bots import hugs
+    try: import hugs
     except Exception as e: print(e)
 
 if RUN_DEL_COMMENTS:
-    try: from bots import delcomments
+    try: import delcomments
     except Exception as e: print(e)
 
 if RUN_SUBREDDIT_SNIPER:
-    try: from bots import subredditsniper
+    try: import subredditsniper
     except Exception as e: print(e)

@@ -2,7 +2,7 @@ import sys
 
 import praw
 
-from conf import *
+from config import *
 
 non_bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
@@ -17,8 +17,8 @@ r = praw.Reddit(client_id=REDDIT_CLIENT,
 blockedSubs = ['TodayILearned']
 
 # Define blocked users
-blockedUsers = ['mike_pants', '_5__', 'exoticmind_2', 'misterdominic', 'Yung_Relight', '​LogansGamerta9', '​RicoDePico',
-                '​Tjah78', 'c​reatedin2017', 'Pmaguire13']
+blockedUsers = ['mike_pants', '_5__', 'exoticmind_2', 'misterdominic', 'Yung_Relight', 'logansGamerta9', 'RicoDePico',
+                'Tjah78', 'createdin2017', 'Pmaguire13']
 
 # Get all posts from subreddit
 subreddit = r.subreddit('all')

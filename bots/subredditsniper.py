@@ -4,7 +4,7 @@ from random import randint
 
 import praw
 
-from conf import *
+from config import *
 
 # Create the Reddit instances
 r = [
